@@ -1,7 +1,13 @@
 import DataTypes from "sequelize";
 
 export default (sequelize) => {
-  sequelize.define("message", {
-    text: DataTypes.STRING,
-  });
+  sequelize.define(
+    "message",
+    {
+      text: DataTypes.STRING,
+    },
+    {
+      underscored: true,
+    }
+  );
 };
