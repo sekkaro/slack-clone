@@ -27,6 +27,10 @@ export class Team extends BaseEntity {
   @ManyToMany(() => User, (member) => member.teams)
   members: User[];
 
+  @Field()
+  @Column()
+  ownerId: number;
+
   @ManyToOne(() => User, (user) => user.ownedTeams)
   owner: User;
 

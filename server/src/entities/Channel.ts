@@ -28,11 +28,15 @@ export class Channel extends BaseEntity {
 
   @Field()
   @Column()
-  public!: boolean;
+  public: boolean;
 
   @ManyToMany(() => User)
   @JoinTable()
   member: User[];
+
+  @Field()
+  @Column()
+  teamId: number;
 
   @ManyToOne(() => Team, (team) => team.channels)
   team: Team;
