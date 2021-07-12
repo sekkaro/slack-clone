@@ -16,6 +16,7 @@ import { TeamResolver } from "./resolvers/team";
 import { createUserLoader } from "./utils/createUserLoader";
 import { ChannelResolver } from "./resolvers/channel";
 import { MessageResolver } from "./resolvers/message";
+import cors from "cors";
 
 const main = async () => {
   const conn = await createConnection({
@@ -28,6 +29,14 @@ const main = async () => {
   });
 
   const app = express();
+
+  app.set("trust proxy", 1);
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -50,7 +59,7 @@ const main = async () => {
     }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
     console.log("server started on localhost:4000");
